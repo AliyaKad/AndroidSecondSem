@@ -16,12 +16,17 @@ class DetailViewModel @Inject constructor(
     private val getHistoricalRateUseCase: GetHistoricalRateUseCase
 ) : ViewModel() {
 
-    private val _historicalRate = MutableLiveData<Result<Double>>()
-    val historicalRate: LiveData<Result<Double>> = _historicalRate
+    private val _historicalRate = MutableLiveData<Result<Pair<Double, Boolean>>>()
+    val historicalRate: LiveData<Result<Pair<Double, Boolean>>> = _historicalRate
 
     fun fetchHistoricalRate(currencyCode: String, date: String) {
         viewModelScope.launch {
-            _historicalRate.value = getHistoricalRateUseCase(currencyCode, date)
+            try {
+                val (rate, isFromCache) = getHistoricalRateUseCase(currencyCode, date)
+                _historicalRate.value = Result.Success(Pair(rate, isFromCache))
+            } catch (e: Exception) {
+                _historicalRate.value = Result.Failure(e)
+            }
         }
     }
 }

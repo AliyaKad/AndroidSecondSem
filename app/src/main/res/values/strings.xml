@@ -6,7 +6,7 @@
     <string name="selected_currency">Выбранная валюта: %s</string>
     <string name="enter_date_hint">Введите дату (ГГГГ-ММ-ДД)</string>
     <string name="btn_fetch_historical_rate">Получить исторический курс</string>
-    <string name="historical_rate_placeholder">Курс: %s</string>
+    <string name="historical_rate_placeholder">Курс: %.2f</string>
     <string name="detail_screen_description">
         На этом экране вы можете узнать исторический курс выбранной валюты по отношению к доллару США.
         Введите дату в формате ГГГГ-ММ-ДД, чтобы получить результат.
@@ -18,4 +18,6 @@
     <string name="error_server_message">Ошибка: %s</string>
 
     <string name="ok_button">OK</string>
+    <string name="cache_source">Источник: Кэш</string>
+    <string name="api_source">Источник: API</string>
 </resources>

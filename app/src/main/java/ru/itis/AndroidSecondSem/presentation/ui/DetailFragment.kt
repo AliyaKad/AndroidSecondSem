@@ -3,6 +3,7 @@ package ru.itis.AndroidSecondSem.presentation.ui
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,9 +48,19 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 is Result.Success -> {
                     binding.shimmerResult.stopShimmer()
                     binding.shimmerResult.visibility = View.GONE
-
                     binding.tvHistoricalRate.visibility = View.VISIBLE
-                    binding.tvHistoricalRate.text = getString(R.string.historical_rate_placeholder, result.data)                }
+
+                    val (rate, isFromCache) = result.data
+                    binding.tvHistoricalRate.text = getString(R.string.historical_rate_placeholder, rate)
+
+                    val sourceMessage = if(isFromCache) {
+                        getString(R.string.cache_source)
+                    } else {
+                        getString(R.string.api_source)
+                    }
+
+                    Toast.makeText(requireContext(), sourceMessage, Toast.LENGTH_SHORT).show()
+                }
                 is Result.Failure -> {
                     binding.shimmerResult.stopShimmer()
                     binding.shimmerResult.visibility = View.GONE
