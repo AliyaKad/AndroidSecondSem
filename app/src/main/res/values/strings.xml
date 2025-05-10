@@ -1,3 +1,21 @@
 <resources>
-    <string name="app_name">AndroidSecondSem</string>
+    <string name="app_name">Currency App</string>
+    <string name="main_screen_title">Главный экран</string>
+    <string name="btn_fetch_rates">Вывести список доступных валют</string>
+
+    <string name="selected_currency">Выбранная валюта: %s</string>
+    <string name="enter_date_hint">Введите дату (ГГГГ-ММ-ДД)</string>
+    <string name="btn_fetch_historical_rate">Получить исторический курс</string>
+    <string name="historical_rate_placeholder">Курс: %s</string>
+    <string name="detail_screen_description">
+        На этом экране вы можете узнать исторический курс выбранной валюты по отношению к доллару США.
+        Введите дату в формате ГГГГ-ММ-ДД, чтобы получить результат.
+    </string>
+
+    <string name="error_dialog_title">Ошибка</string>
+    <string name="error_invalid_date">Пожалуйста, введите корректную дату.</string>
+    <string name="error_network_unavailable">Нет подключения к интернету. Проверьте соединение.</string>
+    <string name="error_server_message">Ошибка: %s</string>
+
+    <string name="ok_button">OK</string>
 </resources>

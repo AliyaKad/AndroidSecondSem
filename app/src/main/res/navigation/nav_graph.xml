@@ -1,0 +1,24 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="ru.itis.AndroidSecondSem.presentation.ui.MainFragment"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="ru.itis.AndroidSecondSem.presentation.ui.DetailFragment"
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="CURRENCY_CODE"
+            app:argType="string"
+            android:defaultValue="USD" />
+    </fragment>
+</navigation>
