@@ -5,7 +5,7 @@ import ru.itis.AndroidSecondSem.data.api.CurrencyApi
 import ru.itis.AndroidSecondSem.data.model.CurrencyResponse
 import ru.itis.AndroidSecondSem.Result
 
-class CurrencyRepository @Inject constructor(private val api: CurrencyApi) {
+class CurrencyRepository @Inject constructor(private val api: CurrencyApi, private val cacheManager: CacheManager) {
 
     suspend fun getLatestRates(): Result<CurrencyResponse> {
         return try {
@@ -20,29 +20,33 @@ class CurrencyRepository @Inject constructor(private val api: CurrencyApi) {
         }
     }
 
-
-    suspend fun getHistoricalRate(currencyCode: String, date: String): Result<Double> {
+    suspend fun getHistoricalRate(currencyCode: String, date: String): Pair<Double, Boolean> {
+        val key = "$currencyCode-$date"
+        val cachedResult = cacheManager.getCachedResult(key)
+        if (cachedResult != null) {
+            return Pair(cachedResult, true)
+        }
         return try {
             val response = api.getHistoricalRates(date)
             if (response.isSuccessful) {
                 val rate = response.body()?.rates?.get(currencyCode)
                 if (rate != null) {
-                    Result.Success(rate)
+                    cacheManager.saveToCache(key, rate)
+                    Pair(rate, false)
                 } else {
-                    Result.Failure(Exception("Currency code not found"))
+                    throw Exception("Currency code not found")
                 }
             } else {
                 when (response.code()) {
-                    400 -> Result.Failure(Exception("Bad Request"))
-                    401 -> Result.Failure(Exception("Unauthorized access"))
-                    404 -> Result.Failure(Exception("Data not found"))
-                    else -> Result.Failure(Exception("Server error: ${response.code()}"))
+                    400 -> throw Exception("Bad Request")
+                    401 -> throw Exception("Unauthorized access")
+                    404 -> throw Exception("Data not found")
+                    else -> throw Exception("Server error: ${response.code()}")
                 }
             }
         } catch (e: Exception) {
-            Result.Failure(e)
+            throw e
         }
-
     }
 
 }
