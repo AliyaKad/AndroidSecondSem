@@ -20,4 +20,10 @@
     <string name="ok_button">OK</string>
     <string name="cache_source">Источник: Кэш</string>
     <string name="api_source">Источник: API</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="go_to_graph">Перейти к графику</string>
+    <string name="point_count">Количество точек</string>
+    <string name="numders">Значения через запятую</string>
+    <string name="show_graph">Построить график</string>
 </resources>
