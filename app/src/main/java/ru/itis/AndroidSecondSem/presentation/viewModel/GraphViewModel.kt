@@ -1,10 +1,12 @@
 package ru.itis.AndroidSecondSem.presentation.viewModel
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import ru.itis.AndroidSecondSem.R
 
-class GraphViewModel : ViewModel() {
+class GraphViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _pointCount = MutableStateFlow("")
     val pointCount: StateFlow<String> = _pointCount
@@ -32,16 +34,16 @@ class GraphViewModel : ViewModel() {
         try {
             val count = _pointCount.value.toIntOrNull()
             if (count == null || count <= 0) {
-                throw IllegalArgumentException("Количество точек должно быть положительным числом")
+                throw IllegalArgumentException(getApplication<Application>().getString(R.string.error_positive_number_required))
             }
 
             val inputValues = _valuesInput.value.split(",").mapNotNull { it.trim().toFloatOrNull() }
             if (inputValues.size != count) {
-                throw IllegalArgumentException("Количество значений не совпадает с количеством точек")
+                throw IllegalArgumentException(getApplication<Application>().getString(R.string.error_value_count_mismatch))
             }
 
             if (inputValues.any { it < 0 }) {
-                throw IllegalArgumentException("Значения не должны быть отрицательными")
+                throw IllegalArgumentException(getApplication<Application>().getString(R.string.error_non_negative_values_required))
             }
 
             _points.value = inputValues

@@ -26,4 +26,8 @@
     <string name="point_count">Количество точек</string>
     <string name="numders">Значения через запятую</string>
     <string name="show_graph">Построить график</string>
+
+    <string name="error_positive_number_required">Количество точек должно быть положительным числом</string>
+    <string name="error_value_count_mismatch">Количество значений не совпадает с количеством точек</string>
+    <string name="error_non_negative_values_required">Значения не должны быть отрицательными</string>
 </resources>
