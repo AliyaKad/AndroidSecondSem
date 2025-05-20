@@ -53,7 +53,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":auth"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -79,4 +78,12 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.8.9")
     implementation("androidx.navigation:navigation-ui-ktx:2.8.9")
     implementation("com.facebook.shimmer:shimmer:0.5.0")
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.5")
+    implementation("androidx.compose.runtime:runtime-livedata")
+    implementation("androidx.compose.runtime:runtime-rxjava2")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:1.8.0")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation("com.patrykandpatrick.vico:compose:1.9.0")
+
 }

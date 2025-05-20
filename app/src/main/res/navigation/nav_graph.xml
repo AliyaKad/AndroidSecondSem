@@ -20,14 +20,12 @@
             android:name="CURRENCY_CODE"
             app:argType="string"
             android:defaultValue="USD" />
-    </fragment>
-
-        <fragment
-        android:id="@+id/authFragment"
-        android:name="ru.itis.auth.presentation.ui.AuthFragment"
-            tools:layout="@layout/fragment_auth">
         <action
-            android:id="@+id/action_authFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            android:id="@+id/action_detailFragment_to_graphFragment"
+            app:destination="@id/graphFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/graphFragment"
+        android:name="ru.itis.AndroidSecondSem.presentation.ui.GraphFragment"
+        android:label="GraphFragment" />
 </navigation>
