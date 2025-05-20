@@ -26,6 +26,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMainBinding.bind(view)
 
+        if (!isUserLoggedIn()) {
+            navigateToAuthScreen()
+            return
+        }
+
         binding.fragmentName.text = getString(R.string.main_screen_title)
 
         val adapter = CurrencyAdapter { currencyCode ->
@@ -71,6 +76,14 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun isUserLoggedIn(): Boolean {
+        return false
+    }
+
+    private fun navigateToAuthScreen() {
+        findNavController().navigate(MainFragmentDirections.actionMainFragmentToDetailFragment())
     }
 
     private fun showDialog(title: String, message: String) {

@@ -21,4 +21,13 @@
             app:argType="string"
             android:defaultValue="USD" />
     </fragment>
+
+        <fragment
+        android:id="@+id/authFragment"
+        android:name="ru.itis.auth.presentation.ui.AuthFragment"
+            tools:layout="@layout/fragment_auth">
+        <action
+            android:id="@+id/action_authFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 </navigation>
