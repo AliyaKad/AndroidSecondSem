@@ -26,11 +26,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMainBinding.bind(view)
 
-        if (!isUserLoggedIn()) {
-            navigateToAuthScreen()
-            return
-        }
-
         binding.fragmentName.text = getString(R.string.main_screen_title)
 
         val adapter = CurrencyAdapter { currencyCode ->
@@ -69,6 +64,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                         getString(R.string.error_server_message, result.exception.message)
                     )
                 }
+
+                else -> {}
             }
         }
     }
