@@ -5,6 +5,8 @@ plugins {
     alias(libs.plugins.ksp)
     id("com.google.dagger.hilt.android")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -85,5 +87,9 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-compose:1.8.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     implementation("com.patrykandpatrick.vico:compose:1.9.0")
-
+    implementation(platform("com.google.firebase:firebase-bom:33.14.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-messaging-ktx")
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
+    implementation("com.google.firebase:firebase-config-ktx")
 }
