@@ -20,7 +20,6 @@
     <string name="ok_button">OK</string>
     <string name="cache_source">Источник: Кэш</string>
     <string name="api_source">Источник: API</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="go_to_graph">Перейти к графику</string>
     <string name="point_count">Количество точек</string>
@@ -30,4 +29,13 @@
     <string name="error_positive_number_required">Количество точек должно быть положительным числом</string>
     <string name="error_value_count_mismatch">Количество значений не совпадает с количеством точек</string>
     <string name="error_non_negative_values_required">Значения не должны быть отрицательными</string>
+
+    <string name="notification_important_title">Новое уведомление</string>
+    <string name="notification_important_default_message">Это важное уведомление</string>
+    <string name="feature_open_denied">Для доступа войдите в аккаунт</string>
+    <string name="feature_temporarily_unavailable">Функция временно недоступна</string>
+
+    <string name="remote_config_disabled_toast">Функция заблокирована администратором</string>
+
+    <string name="channel_important_notifications">Важные уведомления</string>
 </resources>

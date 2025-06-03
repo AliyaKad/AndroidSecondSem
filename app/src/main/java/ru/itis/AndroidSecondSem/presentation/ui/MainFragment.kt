@@ -3,16 +3,19 @@ package ru.itis.AndroidSecondSem.presentation.ui
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import dagger.hilt.android.AndroidEntryPoint
 import ru.itis.AndroidSecondSem.R
 import ru.itis.AndroidSecondSem.databinding.FragmentMainBinding
 import ru.itis.AndroidSecondSem.presentation.viewModel.MainViewModel
 import ru.itis.AndroidSecondSem.Result
 import ru.itis.AndroidSecondSem.presentation.adapter.CurrencyAdapter
+
 
 @AndroidEntryPoint
 class MainFragment : Fragment(R.layout.fragment_main) {
@@ -22,6 +25,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     private val viewModel: MainViewModel by viewModels()
 
+    private val remoteConfig by lazy { FirebaseRemoteConfig.getInstance() }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMainBinding.bind(view)
@@ -29,8 +34,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         binding.fragmentName.text = getString(R.string.main_screen_title)
 
         val adapter = CurrencyAdapter { currencyCode ->
-            val action = MainFragmentDirections.actionMainFragmentToDetailFragment(currencyCode)
-            findNavController().navigate(action)
+            if (isFeatureEnabled()) {
+                val action = MainFragmentDirections.actionMainFragmentToDetailFragment(currencyCode)
+                findNavController().navigate(action)
+            } else {
+                Toast.makeText(requireContext(), getString(R.string.feature_temporarily_unavailable), Toast.LENGTH_SHORT).show()            }
         }
 
         binding.rvCurrencyList.adapter = adapter
@@ -50,9 +58,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 is Result.Success -> {
                     binding.shimmerLayout.stopShimmer()
                     binding.shimmerLayout.visibility = View.GONE
-
                     binding.rvCurrencyList.visibility = View.VISIBLE
-
                     val rates = result.data.rates.keys.toList()
                     adapter.submitList(rates)
                 }
@@ -64,23 +70,13 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                         getString(R.string.error_server_message, result.exception.message)
                     )
                 }
-
                 else -> {}
             }
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    private fun isUserLoggedIn(): Boolean {
-        return false
-    }
-
-    private fun navigateToAuthScreen() {
-        findNavController().navigate(MainFragmentDirections.actionMainFragmentToDetailFragment())
+    private fun isFeatureEnabled(): Boolean {
+        return remoteConfig.getBoolean("enable_detail_feature")
     }
 
     private fun showDialog(title: String, message: String) {
@@ -92,5 +88,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }
             .create()
         dialog.show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
